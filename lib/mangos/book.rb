@@ -23,7 +23,9 @@ class Mangos::Book
   end
 
   def title
-    path.basename.to_s
+    title = path.relative_path_from(mangos.root_path).to_s
+    title = title.gsub("/", " / ")
+    title
   end
 
   def thumbnail_path
