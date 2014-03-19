@@ -9,6 +9,16 @@ controllers.show = function(key) {
     return book.url + "/" + book.pageUrls[index - 1];
   }
 
+  function squeezePortraitImage() {
+    var image = $("#image")[0];
+    if(image.naturalWidth < image.naturalHeight) {
+      $("#image").css("max-width", "1000px");
+    }
+    else {
+      $("#image").css("max-width", "");
+    }
+  }
+
   function preloadImage(index) {
     var image = new Image();
     image.src = pageUrl(index);
@@ -23,6 +33,10 @@ controllers.show = function(key) {
   this.init = function() {
     console.log("starting show");
     $("#image").attr("src", "img/blank.png");
+
+    var image = $("#image")[0];
+    image.onload = squeezePortraitImage;
+
     $("#view-show").show().addClass("current-view");
     $("title").text(book.title + " - Mangos");
     //setTimeout(preloadImages, 5000);
