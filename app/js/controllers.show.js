@@ -15,7 +15,7 @@ controllers.show = function(key) {
       $("#image").css("max-width", "1000px");
     }
     else {
-      $("#image").css("max-width", "");
+      $("#image").css("max-width", "100%");
     }
   }
 
@@ -34,8 +34,8 @@ controllers.show = function(key) {
     console.log("starting show");
     $("#image").attr("src", "img/blank.png");
 
-    var image = $("#image")[0];
-    image.onload = squeezePortraitImage;
+    //var image = $("#image")[0];
+    //image.onload = squeezePortraitImage;
 
     $("#view-show").show().addClass("current-view");
     $("title").text(book.title + " - Mangos");
