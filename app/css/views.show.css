@@ -16,6 +16,12 @@
   margin: 0 auto 0 auto;
 }
 
+@media (min-width: 992px) {
+  #view-show img {
+    max-height: 100%;
+  }
+}
+
 #view-show #return-to-index {
   padding: 5px;
 }
