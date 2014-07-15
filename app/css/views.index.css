@@ -4,9 +4,8 @@
 
 #header { padding: 12px; }
 #search { width: 250px; }
-#actions { float: right; }
 
-#header > form { 
+#header > form {
   width: 684px;
   margin-left: auto;
   margin-right: auto;
@@ -14,34 +13,14 @@
 
 #wrapper { position: relative; background-color: #000000; }
 
-#tag_cloud, #header { background-color: #ffffff; }
-#tag_cloud { position: absolute; top: 0; right: 0; z-index: 1000; width: 500px; background-color: #ffffff; padding: 15px; }
-#tag_cloud .size_1 { font-size: 1.0em; }
-#tag_cloud .size_2 { font-size: 1.2em; }
-#tag_cloud .size_3 { font-size: 1.4em; }
-#tag_cloud .size_4 { font-size: 1.6em; }
-
-.title {  }
 #items { padding: 2px 0 0 2px; }
 #items li { margin: 0 2px 2px 0; float: left; list-style-type: none; position: relative; overflow: hidden; width: 197px; height: 310px; }
-#items li .emblems, #items li .actions { display: block; position: absolute; top: 0; right: 0; padding: 1px; line-height: 0; background-color: #ffffff; }
-#items li .actions { display: none; right: auto; left: 0; width: 32px; }
 #items li > a { color: #000000; text-decoration: none; }
 #items li .info-wrapper { position: absolute; bottom: 0; left: 0; right: 0; background-color: #ffffff; }
 #items li .info { padding: 2px; }
 #items li .info img { vertical-align: middle; }
 #items li .info .title { padding-bottom: 3px; }
-#items .tag_list { min-height: 1.2em; }
-#items .tag_list:hover { background-color: #ffffaa; }
-#items input { width: 100%; }
 
 #items li.no_results { color: #ffffff; width: auto; float: none; text-align: center; padding: 40px 0; }
-/*#items .tags form { display: none; }*/
-
-#items li:hover .actions { display: block; }
 
 #item .title_image { float: left; margin-right: 15px; }
-#item #info { float: left; width: 315px; }
-#item .actions { margin-top: 15px; border-top: 1px solid #a0a0a0; padding-top: 15px; }
-
-#collections-index body { padding: 10px; }
