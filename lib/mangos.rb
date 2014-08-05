@@ -16,7 +16,6 @@ require "mangos/core_ext/pathname"
 module Mangos
 end
 
-require "mangos/mangos"
-require "mangos/mangos_package"
+require "mangos/package"
 require "mangos/update"
 require "mangos/book"

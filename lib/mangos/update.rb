@@ -1,11 +1,11 @@
 class Mangos::Update
-  attr_reader :mangos
+  attr_reader :package
   attr_accessor :books
 
-  def initialize(mangos)
-    @mangos = mangos
+  def initialize(package)
+    @package = package
 
-    @directories = mangos.root_path.descendant_directories.reject { |p| p.basename.to_s[0..0] == '.' }
+    @directories = package.path.descendant_directories.reject { |p| p.basename.to_s[0..0] == '.' }
     @books = []
     #load_data
     process
@@ -14,7 +14,7 @@ class Mangos::Update
   end
 
   def load_data
-    self.books = (Mangos::Mangos.load_json(mangos.mangos_path + "data.json") || []).map { |b| Mangos::Book.from_hash(mangos, b) }
+    self.books = (Mangos::Package.load_json(package.app_path + "data.json") || []).map { |b| Mangos::Book.from_hash(package, b) }
   end
 
   def save_data
@@ -26,7 +26,7 @@ class Mangos::Update
 
       books_hashes << b.to_hash
     end
-    Mangos::Mangos.save_json(mangos.mangos_path + "data.json", books_hashes)
+    Mangos::Package.save_json(package.app_path + "data.json", books_hashes)
   end
 
   def process
@@ -54,7 +54,7 @@ class Mangos::Update
   end
 
   def created(directory)
-    book = Mangos::Book.new(mangos)
+    book = Mangos::Book.new(package)
     book.path = directory
     book.generate_thumbnail
     books << book

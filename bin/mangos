@@ -4,5 +4,5 @@ require "mangos"
 
 root_path = Pathname.new(ARGV.first || ".").realpath
 
-mangos = Mangos::Mangos.new(root_path)
+mangos = Mangos::Package.new(root_path)
 mangos.update

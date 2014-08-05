@@ -1,9 +1,9 @@
 class Mangos::Book
-  attr_reader :mangos
+  attr_reader :package
   attr_accessor :path
 
-  def initialize(mangos)
-    @mangos = mangos
+  def initialize(package)
+    @package = package
   end
 
   def path_hash
@@ -11,7 +11,7 @@ class Mangos::Book
   end
 
   def url
-    mangos.pathname_to_url(path, mangos.mangos_path)
+    package.pathname_to_url(path, package.app_path)
   end
 
   def page_paths
@@ -19,21 +19,21 @@ class Mangos::Book
   end
 
   def page_urls
-    page_paths.map { |p| mangos.pathname_to_url(p, path) }
+    page_paths.map { |p| package.pathname_to_url(p, path) }
   end
 
   def title
-    title = path.relative_path_from(mangos.root_path).to_s
+    title = path.relative_path_from(package.path).to_s
     title = title.gsub("/", " / ")
     title
   end
 
   def thumbnail_path
-    mangos.mangos_path + "img/thumbnails/" + "#{path_hash}.jpg"
+    package.app_path + "img/thumbnails/" + "#{path_hash}.jpg"
   end
 
   def thumbnail_url
-    mangos.pathname_to_url(thumbnail_path, mangos.mangos_path)
+    package.pathname_to_url(thumbnail_path, package.app_path)
   end
 
   #PREVIEW_WIDTH = 211
@@ -67,9 +67,9 @@ class Mangos::Book
     puts "There was an error generating thumbnail: #{e.inspect}"
   end
 
-  def self.from_hash(mangos, data)
-    book = Mangos::Book.new(mangos)
-    book.path = mangos.url_to_pathname(Addressable::URI.parse(data["url"]))
+  def self.from_hash(package, data)
+    book = Mangos::Book.new(package)
+    book.path = package.url_to_pathname(Addressable::URI.parse(data["url"]))
     book
   end
 
