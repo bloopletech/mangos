@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="manga-list" attributes="books">
+  <template>
+    <link rel="stylesheet" href="manga-list.css">
+    <template repeat="{{books}}">
+      <div>
+        <a href="#show/{{key}}!1" target="_blank">
+          <img src="../{{thumbnailUrl}}">
+        </a>
+        <div class="info-wrapper">
+          <div class="info">
+            <div class="title">{{title}}</div>
+            <img src="../img/icons/page_white.png" title="Pages"> {{pageUrls.length}}
+          </div>
+        </div>
+      </div>
+    </template>
+  </template>
+  <script>
+    Polymer();
+  </script>
+</polymer-element>

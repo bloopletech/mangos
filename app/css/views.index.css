@@ -11,16 +11,6 @@
   margin-right: auto;
 }
 
-#wrapper { position: relative; background-color: #000000; }
-
-#items { padding: 2px 0 0 2px; }
-#items li { margin: 0 2px 2px 0; float: left; list-style-type: none; position: relative; overflow: hidden; width: 197px; height: 310px; }
-#items li > a { color: #000000; text-decoration: none; }
-#items li .info-wrapper { position: absolute; bottom: 0; left: 0; right: 0; background-color: #ffffff; }
-#items li .info { padding: 2px; }
-#items li .info img { vertical-align: middle; }
-#items li .info .title { padding-bottom: 3px; }
-
 #items li.no_results { color: #ffffff; width: auto; float: none; text-align: center; padding: 40px 0; }
 
 #item .title_image { float: left; margin-right: 15px; }

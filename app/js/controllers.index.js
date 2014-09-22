@@ -68,32 +68,14 @@ controllers.index = function(search, sort, sortDirection) {
     $("title").text("Mangos");
   }
 
-  function addBooks(books) {
-    $("#items").empty();
-
-    _.each(books, function(book) {
-      var item = $("<li>");
-      var link = $("<a>");
-      link.attr("href", "#show/" + book.key + "!1");
-      link.attr("target", "_blank");
-      var img = $("<img>");
-      img.attr("src", book.thumbnailUrl);
-      link.append(img);
-      item.append(link);
-
-      item.append('<div class="info-wrapper"><div class="info"><div class="title">' + book.title + '</div>' +
-        '<img src="img/icons/page_white.png" title="Pages"> ' + book.pageUrls.length + '</div></div>');
-
-      $("#items").append(item);
-    });
-  }
-
   this.render = function() {
     console.log("rendering");
     window.scrollTo(0, 0);
 
-    addBooks(_.first(books, 500));
+    document.querySelector("manga-list").books = books;
     lastControllerLocation = location.hash;
+
+    $("img:not(#image)").unveil(500);
   }
 
   this.destroy = function() {

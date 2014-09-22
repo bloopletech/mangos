@@ -1,0 +1,20 @@
+{
+  "name": "mangos",
+  "version": "0.0.8",
+  "homepage": "https://github.com/bloopletech/mangos",
+  "authors": [
+    "Brenton \"B-Train\" Fletcher <i@bloople.net>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.4.1"
+  }
+}

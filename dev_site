@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd app
+ln -nfs /media/Mugi/Manga/.mangos/data.json
+if [ ! -h img/thumbnails ]; then
+  rm -rf img/thumbnails
+fi
+ln -nfs /media/Mugi/Manga/.mangos/img/thumbnails img/thumbnails
+
+function restore_directories {
+  rm -f img/thumbnails
+  mkdir img/thumbnails
+  touch img/thumbnails/.gitkeep
+  rm -f data.json
+}
+trap restore_directories EXIT
+
+python -m SimpleHTTPServer 2>&1

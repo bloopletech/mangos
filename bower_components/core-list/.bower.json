@@ -1,0 +1,19 @@
+{
+  "name": "core-list",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "core-selection": "Polymer/core-selection#master"
+  },
+  "homepage": "https://github.com/StreamBoat/core-list",
+  "_release": "a80587c1dd",
+  "_resolution": {
+    "type": "branch",
+    "branch": "grid_layout",
+    "commit": "a80587c1dd6ff04597cd0e6fcfecb02acea90e74"
+  },
+  "_source": "https://github.com/StreamBoat/core-list.git",
+  "_target": "grid_layout",
+  "_originalSource": "StreamBoat/core-list",
+  "_direct": true
+}

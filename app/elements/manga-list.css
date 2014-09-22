@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  background-color: #000000;
+  padding: 1px;
+}
+
+:host > div {
+  width: 197px;
+  height: 310px;
+  margin: 1px;
+  position: relative;
+}
+
+:host > div > a {
+  color: #000000;
+  text-decoration: none;
+}
+
+:host > div > .info-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+}
+
+:host > div > .info-wrapper > .info {
+  padding: 2px;
+}
+
+:host > div > .info-wrapper > .info > img {
+  vertical-align: middle;
+}
+
+:host > div > .info-wrapper > .info > .title {
+  padding-bottom: 3px;
+}
