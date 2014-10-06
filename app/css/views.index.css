@@ -1,8 +1,15 @@
 #view-index {
   display: none;
+  height: 100%;
+  flex-direction: column;
 }
 
-#header { padding: 12px; }
+#header {
+  height: 58px;
+  padding: 12px;
+  flex: none;
+}
+
 #search { width: 250px; }
 
 #header > form {
@@ -11,6 +18,7 @@
   margin-right: auto;
 }
 
-#items li.no_results { color: #ffffff; width: auto; float: none; text-align: center; padding: 40px 0; }
+manga-list {
+  flex: 1;
+}
 
-#item .title_image { float: left; margin-right: 15px; }

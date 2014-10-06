@@ -1,24 +1,25 @@
 :host {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  background-color: #000000;
-  padding: 1px;
+  height: 100%;
 }
 
-:host > div {
+core-list {
+  height: 100%;
+  background-color: #000000;
+}
+
+div.manga-item {
   width: 197px;
   height: 310px;
-  margin: 1px;
+  border: 1px solid #000000;
   position: relative;
 }
 
-:host > div > a {
+div.manga-item > a {
   color: #000000;
   text-decoration: none;
 }
 
-:host > div > .info-wrapper {
+div.manga-item > .info-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -26,14 +27,14 @@
   background-color: #ffffff;
 }
 
-:host > div > .info-wrapper > .info {
+div.manga-item > .info-wrapper > .info {
   padding: 2px;
 }
 
-:host > div > .info-wrapper > .info > img {
+div.manga-item > .info-wrapper > .info > img {
   vertical-align: middle;
 }
 
-:host > div > .info-wrapper > .info > .title {
+div.manga-item > .info-wrapper > .info > .title {
   padding-bottom: 3px;
 }

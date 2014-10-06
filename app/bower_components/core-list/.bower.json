@@ -5,15 +5,23 @@
     "polymer": "Polymer/polymer#master",
     "core-selection": "Polymer/core-selection#master"
   },
-  "homepage": "https://github.com/Streamboat/core-list",
-  "_release": "a80587c1dd",
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#master"
+  },
+  "ignore": [
+    "/*",
+    "!core-list.css",
+    "!core-list.html"
+  ],
+  "homepage": "https://github.com/bloopletech/core-list",
+  "_release": "513e772f7d",
   "_resolution": {
     "type": "branch",
-    "branch": "grid_layout",
-    "commit": "a80587c1dd6ff04597cd0e6fcfecb02acea90e74"
+    "branch": "master",
+    "commit": "513e772f7d4104d67eb04dc8ac03eda4f57c5760"
   },
-  "_source": "git://github.com/Streamboat/core-list.git",
-  "_target": "grid_layout",
-  "_originalSource": "Streamboat/core-list",
+  "_source": "git://github.com/bloopletech/core-list.git",
+  "_target": "master",
+  "_originalSource": "bloopletech/core-list",
   "_direct": true
 }

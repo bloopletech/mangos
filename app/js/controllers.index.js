@@ -64,7 +64,7 @@ controllers.index = function(search, sort, sortDirection) {
     $(".sort-direction button").removeClass("active");
     $(".sort-direction button[data-sort-direction=" + sortDirection + "]").addClass("active");
 
-    $("#view-index").show().addClass("current-view");
+    $("#view-index").css("display", "flex").addClass("current-view");
     $("title").text("Mangos");
   }
 
@@ -75,8 +75,6 @@ controllers.index = function(search, sort, sortDirection) {
     //document.querySelector("manga-list").data = books;
     document.querySelector("manga-list").updateData(books);
     lastControllerLocation = location.hash;
-
-    $("img:not(#image)").unveil(500);
   }
 
   this.destroy = function() {

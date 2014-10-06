@@ -3,16 +3,17 @@
 
 <polymer-element name="manga-list" attributes="data">
   <template>
-    <core-list id="list" height="197" width="310" grid=true>
+    <link rel="stylesheet" href="manga-list.css">
+    <core-list id="list" height="312" width="199" grid extraItems="50">
       <template>
-        <div>
-          <a href="#show/{{key}}!1" target="_blank">
-            <img src="../{{thumbnailUrl}}">
+        <div class="manga-item">
+          <a href="#show/{{model.key}}!1" target="_blank">
+            <img src="../{{model.thumbnailUrl}}">
           </a>
           <div class="info-wrapper">
             <div class="info">
-              <div class="title">{{title}}</div>
-              <img src="../img/icons/page_white.png" title="Pages"> {{pageUrls.length}}
+              <div class="title">{{model.title}}</div>
+              <img src="../img/icons/page_white.png" title="Pages"> {{model.pageUrls.length}}
             </div>
           </div>
         </div>
@@ -23,8 +24,8 @@
     Polymer('manga-list', {
       //this is a workaround till https://github.com/Polymer/core-list/issues/26 is fixed.
       updateData: function(newData) {
-        console.log("changing data to ", newData);
         this.$.list.data = newData;
+        this.$.list.refresh(true);
       }
     });
   </script>
