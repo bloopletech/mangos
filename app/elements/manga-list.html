@@ -1,23 +1,31 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-list/core-list.html">
 
-<polymer-element name="manga-list" attributes="books">
+<polymer-element name="manga-list" attributes="data">
   <template>
-    <link rel="stylesheet" href="manga-list.css">
-    <template repeat="{{books}}">
-      <div>
-        <a href="#show/{{key}}!1" target="_blank">
-          <img src="../{{thumbnailUrl}}">
-        </a>
-        <div class="info-wrapper">
-          <div class="info">
-            <div class="title">{{title}}</div>
-            <img src="../img/icons/page_white.png" title="Pages"> {{pageUrls.length}}
+    <core-list id="list" height="197" width="310" grid=true>
+      <template>
+        <div>
+          <a href="#show/{{key}}!1" target="_blank">
+            <img src="../{{thumbnailUrl}}">
+          </a>
+          <div class="info-wrapper">
+            <div class="info">
+              <div class="title">{{title}}</div>
+              <img src="../img/icons/page_white.png" title="Pages"> {{pageUrls.length}}
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </core-list>
   </template>
   <script>
-    Polymer();
+    Polymer('manga-list', {
+      //this is a workaround till https://github.com/Polymer/core-list/issues/26 is fixed.
+      updateData: function(newData) {
+        console.log("changing data to ", newData);
+        this.$.list.data = newData;
+      }
+    });
   </script>
 </polymer-element>

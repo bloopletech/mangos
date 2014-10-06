@@ -14,7 +14,7 @@
     "branch": "master",
     "commit": "a1ff345f2cc359fbbf0a6f465e631ac44d399e90"
   },
-  "_source": "https://github.com/Polymer/core-selection.git",
+  "_source": "git://github.com/Polymer/core-selection.git",
   "_target": "master",
   "_originalSource": "Polymer/core-selection"
 }

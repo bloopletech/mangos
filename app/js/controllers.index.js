@@ -72,7 +72,8 @@ controllers.index = function(search, sort, sortDirection) {
     console.log("rendering");
     window.scrollTo(0, 0);
 
-    document.querySelector("manga-list").books = books;
+    //document.querySelector("manga-list").data = books;
+    document.querySelector("manga-list").updateData(books);
     lastControllerLocation = location.hash;
 
     $("img:not(#image)").unveil(500);
