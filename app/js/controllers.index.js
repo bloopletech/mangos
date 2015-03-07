@@ -15,16 +15,32 @@ controllers.index = function(search, sort, sortDirection) {
     };
   }
 
-  var books = store;
-  if(search && search != "") {
-    var words = search.split(/\s+/);
-    _.each(words, function(word) {
-      regex = RegExp(word, "i");
-      books = _.filter(books, function(book) {
-        return book.title.match(regex);
-      });
+  function searchWords(books, search) {
+    var words = _.partition(search.split(/\s+/), function(word) {
+      return word.match(/^-/);
     });
+
+    var includedWords = words[1];
+    var excludedWords = words[0];
+
+    function containsRegex(regex, book) {
+      return book.title.match(regex);
+    }
+
+    _.each(includedWords, function(word) {
+      books = _.filter(books, _.partial(containsRegex, RegExp(word, "i")));
+    });
+
+    _.each(excludedWords, function(word) {
+      word = word.substr(1);
+      books = _.reject(books, _.partial(containsRegex, RegExp(word, "i")));
+    });
+
+    return books;
   }
+
+  var books = store;
+  if(search && search != "") books = searchWords(books, search);
   if(!sort) sort = "publishedOn";
   books = _.sortBy(books, sortFor(sort));
 
