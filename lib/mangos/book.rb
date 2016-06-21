@@ -15,7 +15,7 @@ class Mangos::Book
   end
 
   def page_paths
-    path.children.select { |p| p.image? && !p.hidden? }.sort_by { |p| Naturally.normalize(p.basename) }
+    path.children.select { |p| p.image? && !p.hidden? }.sort_by { |p| normalize(p) }
   end
 
   def page_urls
@@ -83,5 +83,11 @@ class Mangos::Book
       "thumbnailUrl" => thumbnail_url,
       "key" => path_hash
     }
+  end
+
+  private
+
+  def normalize(pathname)
+    Naturally.normalize(pathname.basename.to_s.gsub("_", "|"))
   end
 end
