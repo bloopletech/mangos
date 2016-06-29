@@ -24,3 +24,5 @@
 #items li.no_results { color: #ffffff; width: auto; float: none; text-align: center; padding: 40px 0; }
 
 #item .title_image { float: left; margin-right: 15px; }
+
+#prev-wrapper, #next-wrapper { padding-top: 100px; text-align: center; }

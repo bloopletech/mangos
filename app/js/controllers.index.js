@@ -66,10 +66,23 @@ controllers.index = function(search, sort, sortDirection) {
 
     $("#view-index").show().addClass("current-view");
     $("title").text("Mangos");
+
+    $("#prev-page").click(function() {
+      utils.page(utils.page() - 1);
+    });
+
+    $("#next-page").click(function() {
+      utils.page(utils.page() + 1);
+    });
   }
 
-  function addBooks(books) {
+  function renderBooks(books) {
+    var prev_page = $("#prev-wrapper").detach();
+    var next_page = $("#next-wrapper").detach();
+
     $("#items").empty();
+
+    $("#items").append(prev_page);
 
     _.each(books, function(book) {
       var item = $("<li>");
@@ -86,13 +99,23 @@ controllers.index = function(search, sort, sortDirection) {
 
       $("#items").append(item);
     });
+
+    $("#items").append(next_page);
   }
 
   this.render = function() {
-    console.log("rendering");
+    var per_page = 500;
+
+    renderBooks(utils.paginate(books, per_page));
+
+    if(utils.page() == 1) $("#prev-wrapper").addClass("hidden");
+    else $("#prev-wrapper").removeClass("hidden");
+
+    if(utils.page() == utils.pages(books, per_page)) $("#next-wrapper").addClass("hidden");
+    else $("#next-wrapper").removeClass("hidden");
+
     window.scrollTo(0, 0);
 
-    addBooks(_.first(books, 500));
     lastControllerLocation = location.hash;
   }
 
