@@ -22,32 +22,7 @@ class Mangos::Package
 
   def update
     app_path.mkdir unless File.exists?(app_path)
-    update_app
     Mangos::Update.new(self)
-  end
-
-  def update_app
-    dev = ENV["MANGOS_ENV"] == "development"
-
-    app_children_paths.each do |file|
-      mangos_file = app_path + file.basename
-      FileUtils.rm_rf(mangos_file, :verbose => dev)
-    end
-
-    if dev
-      app_children_paths.each do |file|
-        mangos_file = app_path + file.basename
-        FileUtils.ln_sf(file, mangos_file, :verbose => dev)
-      end
-    else
-      FileUtils.cp_r(Mangos::Package.gem_path + "app/.", app_path, :verbose => dev)
-    end
-
-    FileUtils.chmod_R(0755, app_path, :verbose => dev)
-  end
-
-  def self.gem_path
-    Pathname.new(__FILE__).dirname.parent.parent
   end
 
   def self.load_json(path)
@@ -62,9 +37,4 @@ class Mangos::Package
     File.open(path, "w") { |f| f << data.to_json }
   end
 
-  private
-  def app_children_paths
-    app_path = Mangos::Package.gem_path + "app/"
-    app_path.children.reject { |f| f.basename.to_s == "img" } #TODO: Deal with this directory properly
-  end
 end
