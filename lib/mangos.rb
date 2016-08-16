@@ -19,3 +19,4 @@ end
 require "mangos/package"
 require "mangos/update"
 require "mangos/book"
+require "mangos/book_updater"

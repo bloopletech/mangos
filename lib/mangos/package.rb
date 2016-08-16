@@ -13,28 +13,12 @@ class Mangos::Package
     URI.escape(path.relative_path_from(relative_from).to_s)
   end
 
-  #FIXME: Doesn't work!
-  def url_to_pathname(url)
-    path = Addressable::URI.unencode_component(url.normalized_path)
-    path.gsub!(/^\//, "") #Make relative, if we allow mounting at a different root URL this will need to remove the root instead of just '/'
-    root_url_path + path
-  end
-
   def update
     app_path.mkdir unless File.exists?(app_path)
-    Mangos::Update.new(self)
+    Mangos::Update.new(self).update
   end
 
-  def self.load_json(path)
-    if File.exists?(path)
-      JSON.parse(File.read(path))
-    else
-      nil
-    end
+  def data_path
+    @app_path + "data.json"
   end
-
-  def self.save_json(path, data)
-    File.open(path, "w") { |f| f << data.to_json }
-  end
-
 end

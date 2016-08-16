@@ -1,67 +1,92 @@
 class Mangos::Update
-  attr_reader :package
   attr_accessor :books
 
   def initialize(package)
     @package = package
-
-    @directories = package.path.descendant_directories.reject { |p| p.basename.to_s[0..0] == '.' }
     @books = []
-    #load_data
+  end
+
+  def update
+    load_data
     process
     save_data
-    puts "\nDone!"
+    puts "Done!"
   end
 
   def load_data
-    self.books = (Mangos::Package.load_json(package.app_path + "data.json") || []).map { |b| Mangos::Book.from_hash(package, b) }
+    return unless @package.data_path.exist?
+
+    puts "Reading in JSON file"
+    @books = JSON.parse(@package.data_path.read).map { |b| Mangos::Book.from_hash(b) }
   end
 
   def save_data
-    puts "\nWriting out JSON file"
-    books_hashes = []
-    books.each_with_index do |b, i|
-      $stdout.write "\rProcessing #{i + 1} of #{books.length} (#{(((i + 1) / books.length.to_f) * 100.0).round}%)"
-      $stdout.flush
-
-      books_hashes << b.to_hash
-    end
-    Mangos::Package.save_json(package.app_path + "data.json", books_hashes)
+    puts "Writing out JSON file"
+    @package.data_path.write(@books.map { |b| b.to_hash }.to_json)
   end
 
   def process
-    puts "\nLoading books"
-    @directories.each_with_index do |d, i|
-      $stdout.write "\rProcessing #{i + 1} of #{@directories.length} (#{(((i + 1) / @directories.length.to_f) * 100.0).round}%)"
+    puts "Processing books...\n"
+
+    @new_books = 0
+    @updated_books = 0
+    @skipped_books = 0
+    @deleted_books = 0
+    @original_mtime = @package.data_path.mtime
+
+    paths = all_paths
+    paths.each_with_index do |p, i|
+      $stdout.write "\rProcessing #{i + 1} of #{paths.length} (#{(((i + 1) / paths.length.to_f) * 100.0).round}%)"
       $stdout.flush
 
-      created d
+      process_path(p)
     end
-    #handle deleted first
-    #@directories.each do |d|
-    #  puts "d: #{d.inspect}"
-    #  book = books.find { |b| b.path == d }
-    #  if book
-    #    updated(book)
-    #  else
-    #    created(d)
-    #  end
-    #end
+
+    process_deleted
+
+    puts "\nProcessed #{@new_books} new books, updated #{@updated_books} existing books, removed #{@deleted_books} deleted books, and skipped #{@skipped_books} books"
   end
 
-  def deleted
-    #
+  def process_deleted
+    books_to_remove = @books.reject do |book|
+      path = @package.app_path + Pathname.new(Addressable::URI.unencode_component(book.url))
+      path.exist?
+    end
+
+    @deleted_books = books_to_remove.length
+
+    @books -= books_to_remove
   end
 
-  def created(directory)
-    book = Mangos::Book.new(package)
-    book.path = directory
-    book.generate_thumbnail
-    books << book
+  def process_path(path)
+    url = @package.pathname_to_url(path, @package.app_path)
+
+    book = @books.find { |b| b.url == url }
+
+    if book
+      if path.mtime >= @original_mtime
+        process_updated_path(path, book)
+      else
+        @skipped_books += 1
+      end
+    else
+      process_new_path(path)
+    end
   end
 
-  def updated(book)
-    puts "updating: #{book.inspect}"
-    #
+  def all_paths
+    @package.path.children.reject { |p| p.hidden? }.select { |p| p.directory? }
+  end
+
+  def process_new_path(path)
+    @new_books += 1
+    book = Mangos::Book.new
+    Mangos::BookUpdater.new(@package, book, path).update
+    @books << book
+  end
+
+  def process_updated_path(path, book)
+    @updated_books += 1
+    Mangos::BookUpdater.new(@package, book, path).update
   end
 end
