@@ -19,4 +19,5 @@ end
 require "mangos/package"
 require "mangos/update"
 require "mangos/book"
+require "mangos/pages_deflater"
 require "mangos/book_updater"

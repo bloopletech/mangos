@@ -8,14 +8,12 @@ class Mangos::BookUpdater
   end
 
   def update
-    @book.key = Digest::SHA256.hexdigest(@path.to_s)[0..16]
-    @book.url = @package.pathname_to_url(@path, @package.app_path)
-
     page_paths = find_page_paths
 
-    @book.page_urls = page_paths.map { |p| @package.pathname_to_url(p, @path) }
-
-    @book.pages = @book.page_urls.length
+    @book.key = Digest::SHA256.hexdigest(@path.to_s)[0..16]
+    @book.url = @package.pathname_to_url(@path, @package.app_path)
+    @book.page_urls = build_page_urls(page_paths)
+    @book.pages = page_paths.length
     @book.title = @path.basename.to_s
     @book.published_on = @path.mtime.to_i
     @book.thumbnail_url = thumbnail_url
@@ -25,6 +23,11 @@ class Mangos::BookUpdater
 
   def find_page_paths
     @path.children.select { |p| p.image? && !p.hidden? }.sort_by { |p| normalize(p) }
+  end
+
+  def build_page_urls(page_paths)
+    page_urls = page_paths.map { |p| @package.pathname_to_url(p, @path) }
+    Mangos::PagesDeflater.new(page_urls).deflate
   end
 
   def thumbnail_path
