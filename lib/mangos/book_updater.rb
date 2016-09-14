@@ -22,7 +22,8 @@ class Mangos::BookUpdater
   end
 
   def find_page_paths
-    @path.children.select { |p| p.image? && !p.hidden? }.sort_by { |p| normalize(p) }
+    image_paths = @path.children.select { |p| p.image? && !p.hidden? }
+    Naturalsorter::Sorter.sort(image_paths, true)
   end
 
   def build_page_urls(page_paths)
@@ -68,11 +69,5 @@ class Mangos::BookUpdater
     img.write(thumbnail_path)
   rescue Exception => e
     puts "There was an error generating thumbnail: #{e.inspect}"
-  end
-
-  private
-
-  def normalize(pathname)
-    Naturally.normalize(pathname.basename.to_s.gsub("_", "|"))
   end
 end

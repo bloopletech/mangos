@@ -1,8 +1,9 @@
 class Mangos::Update
   attr_accessor :books
 
-  def initialize(package)
+  def initialize(package, processor)
     @package = package
+    @processor = processor
     @books = []
   end
 
@@ -55,6 +56,8 @@ class Mangos::Update
 
     @deleted_books = books_to_remove.length
 
+    books_to_remove.each { |book| @processor.delete(book) }
+
     @books -= books_to_remove
   end
 
@@ -64,29 +67,18 @@ class Mangos::Update
     book = @books.find { |b| b.url == url }
 
     if book
-      if path.mtime >= @original_mtime
-        process_updated_path(path, book)
+      if @processor.update(path, book)
+        @updated_books += 1
       else
         @skipped_books += 1
       end
     else
-      process_new_path(path)
+      @books << @processor.create(path)
+      @new_books += 1
     end
   end
 
   def all_paths
     @package.path.children.reject { |p| p.hidden? }.select { |p| p.directory? }
-  end
-
-  def process_new_path(path)
-    @new_books += 1
-    book = Mangos::Book.new
-    Mangos::BookUpdater.new(@package, book, path).update
-    @books << book
-  end
-
-  def process_updated_path(path, book)
-    @updated_books += 1
-    Mangos::BookUpdater.new(@package, book, path).update
   end
 end

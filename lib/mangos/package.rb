@@ -15,7 +15,7 @@ class Mangos::Package
 
   def update
     app_path.mkdir unless File.exists?(app_path)
-    Mangos::Update.new(self).update
+    Mangos::Update.new(self, Mangos::Processor.new(self)).update
   end
 
   def data_path

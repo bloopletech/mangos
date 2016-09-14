@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_dependency "addressable", ">= 2.3.5"
-  s.add_dependency "naturally", ">= 2.1.0"
+  s.add_dependency "naturalsorter", ">= 3.0.14"
   s.add_dependency "rmagick", ">= 2.13.1"
 
   s.files        = `git ls-files`.split("\n")
