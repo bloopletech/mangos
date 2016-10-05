@@ -23,7 +23,7 @@ class Mangos::BookUpdater
 
   def find_page_paths
     image_paths = @path.children.select { |p| p.image? && !p.hidden? }
-    Naturalsorter::Sorter.sort(image_paths, true)
+    Naturalsorter::Sorter.sort(image_paths.map(&:to_s), true).map { |p| Pathname.new(p) }
   end
 
   def build_page_urls(page_paths)
