@@ -1,7 +1,7 @@
 class Mangos::Processor
   def initialize(package)
     @package = package
-    @original_mtime = @package.data_path.mtime
+    @original_mtime = @package.data_path.exist? ? @package.data_path.mtime : 0
   end
 
   def create(path)

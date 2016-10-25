@@ -33,7 +33,6 @@ class Mangos::Update
     @updated_books = 0
     @skipped_books = 0
     @deleted_books = 0
-    @original_mtime = @package.data_path.mtime
 
     paths = all_paths
     paths.each_with_index do |p, i|

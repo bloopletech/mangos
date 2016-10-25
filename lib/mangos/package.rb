@@ -10,7 +10,13 @@ class Mangos::Package
   end
 
   def pathname_to_url(path, relative_from)
-    URI.escape(path.relative_path_from(relative_from).to_s)
+    url_encode_path(path.relative_path_from(relative_from).to_s)
+  end
+
+  def url_encode_path(path)
+    path.split("/").map do |component|
+      Addressable::URI.encode_component(component, Addressable::URI::CharacterClasses::PATH)
+    end.join("/")
   end
 
   def update
