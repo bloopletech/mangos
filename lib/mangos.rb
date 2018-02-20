@@ -4,6 +4,7 @@ require "fileutils"
 require "uri"
 require "json"
 require "digest"
+require "strscan"
 
 #Gems
 require "addressable/uri"
