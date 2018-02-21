@@ -15,6 +15,7 @@ class Mangos::BookUpdater
     @book.pages = page_paths.length
     @book.path = @path.basename.to_s
     @book.published_on = @path.mtime.to_i
+    @book.tags = Mangos::TagBreaker.new(@book.path).tags
 
     generate_thumbnail(page_paths.first)
   end

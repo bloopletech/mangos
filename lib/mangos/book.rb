@@ -1,5 +1,5 @@
 class Mangos::Book
-  attr_accessor :path, :page_paths, :pages, :published_on, :key
+  attr_accessor :path, :page_paths, :pages, :published_on, :key, :tags
 
   def from_hash(hash)
     @path = hash["path"]
@@ -7,6 +7,7 @@ class Mangos::Book
     @pages = hash["pages"]
     @published_on = hash["publishedOn"]
     @key = hash["key"]
+    @tags = hash["tags"]
   end
 
   def self.from_hash(hash)
@@ -21,7 +22,8 @@ class Mangos::Book
       "pagePaths" => @page_paths,
       "pages" => @pages,
       "publishedOn" => @published_on,
-      "key" => @key
+      "key" => @key,
+      "tags" => @tags
     }
   end
 end
