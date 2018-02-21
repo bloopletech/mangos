@@ -1,12 +1,12 @@
 class Mangos::PagesInflater
-  def initialize(page_urls)
-    @page_urls = page_urls
+  def initialize(page_paths)
+    @page_paths = page_paths
   end
 
   def inflate
     paths = []
 
-    @page_urls.split("|").each do |part|
+    @page_paths.split("|").each do |part|
       if part.include?("/")
         name, count = part.split("/")
 

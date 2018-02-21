@@ -1,4 +1,4 @@
-class TagBreaker
+class Mangos::TagBreaker
   DELIMITERS = [
     ['(', ')'],
     ['[', ']'],

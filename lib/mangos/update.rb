@@ -49,7 +49,7 @@ class Mangos::Update
 
   def process_deleted
     books_to_remove = @books.reject do |book|
-      path = @package.app_path + Pathname.new(Addressable::URI.unencode_component(book.url))
+      path = @package.path + book.path
       path.exist?
     end
 
@@ -61,9 +61,9 @@ class Mangos::Update
   end
 
   def process_path(path)
-    url = @package.pathname_to_url(path, @package.app_path)
+    book_path = path.basename
 
-    book = @books.find { |b| b.url == url }
+    book = @books.find { |b| b.path == book_path }
 
     if book
       if @processor.update(path, book)

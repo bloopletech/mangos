@@ -1,6 +1,6 @@
 class Mangos::PagesDeflater
-  def initialize(page_urls)
-    @page_urls = page_urls
+  def initialize(page_paths)
+    @page_paths = page_paths
   end
 
   def deflate
@@ -10,7 +10,7 @@ class Mangos::PagesDeflater
 
     out = []
 
-    @page_urls.each do |path|
+    @page_paths.each do |path|
       base, ext = path.split(".")
 
       if last_base.nil? || (ext != last_ext) || (base != last_base.succ)

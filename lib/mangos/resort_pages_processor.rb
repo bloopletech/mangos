@@ -8,9 +8,9 @@ class Mangos::ResortPagesProcessor
   end
 
   def update(path, book)
-    page_paths = Mangos::PagesInflater.new(book.page_urls).inflate
+    page_paths = Mangos::PagesInflater.new(book.page_paths).inflate
     sorted_page_paths = Naturalsorter::Sorter.sort(page_paths, true)
-    book.page_urls = Mangos::PagesDeflater.new(sorted_page_paths).deflate
+    book.page_paths = Mangos::PagesDeflater.new(sorted_page_paths).deflate
     true
   end
 

@@ -19,6 +19,7 @@ end
 
 require "mangos/processor"
 require "mangos/resort_pages_processor"
+require "mangos/tag_breaker"
 require "mangos/package"
 require "mangos/update"
 require "mangos/book"

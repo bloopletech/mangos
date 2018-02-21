@@ -11,12 +11,10 @@ class Mangos::BookUpdater
     page_paths = find_page_paths
 
     @book.key = Digest::SHA256.hexdigest(@path.to_s)[0..16]
-    @book.url = @package.pathname_to_url(@path, @package.app_path)
-    @book.page_urls = build_page_urls(page_paths)
+    @book.page_paths = build_page_paths(page_paths)
     @book.pages = page_paths.length
-    @book.title = @path.basename.to_s
+    @book.path = @path.basename.to_s
     @book.published_on = @path.mtime.to_i
-    @book.thumbnail_url = thumbnail_url
 
     generate_thumbnail(page_paths.first)
   end
@@ -26,17 +24,12 @@ class Mangos::BookUpdater
     Naturalsorter::Sorter.sort(image_paths.map(&:to_s), true).map { |p| Pathname.new(p) }
   end
 
-  def build_page_urls(page_paths)
-    page_urls = page_paths.map { |p| @package.pathname_to_url(p, @path) }
-    Mangos::PagesDeflater.new(page_urls).deflate
+  def build_page_paths(page_paths)
+    Mangos::PagesDeflater.new(page_paths.map { |p| p.basename.to_s }).deflate
   end
 
   def thumbnail_path
-    @package.app_path + "img/thumbnails/" + "#{@book.key}.jpg"
-  end
-
-  def thumbnail_url
-    @package.pathname_to_url(thumbnail_path, @package.app_path)
+    @package.thumbnails_path + "#{@book.key}.jpg"
   end
 
   #PREVIEW_WIDTH = 211

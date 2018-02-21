@@ -1,30 +1,28 @@
 class Mangos::Package
   attr_reader :path
-  attr_reader :app_path
 
   def initialize(path)
     raise "path must be an instance of Pathname" unless path.is_a?(Pathname)
 
     @path = path
-    @app_path = path + ".mangos/"
-  end
-
-  def pathname_to_url(path, relative_from)
-    url_encode_path(path.relative_path_from(relative_from).to_s)
-  end
-
-  def url_encode_path(path)
-    path.split("/").map do |component|
-      Addressable::URI.encode_component(component, Addressable::URI::CharacterClasses::PATH)
-    end.join("/")
   end
 
   def update
     app_path.mkdir unless File.exists?(app_path)
+    thumbnails_path.mkpath unless File.exists?(thumbnails_path)
+
     Mangos::Update.new(self, Mangos::Processor.new(self)).update
   end
 
+  def app_path
+    @path + ".mangos/"
+  end
+
   def data_path
-    @app_path + "data.json"
+    app_path + "data.json"
+  end
+
+  def thumbnails_path
+    app_path + "img/thumbnails/"
   end
 end
