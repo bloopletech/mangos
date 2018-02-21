@@ -61,7 +61,7 @@ class Mangos::Update
   end
 
   def process_path(path)
-    book_path = path.basename
+    book_path = path.basename.to_s
 
     book = @books.find { |b| b.path == book_path }
 

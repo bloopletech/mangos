@@ -2,7 +2,10 @@ class Mangos::Book
   attr_accessor :path, :page_paths, :pages, :published_on, :key
 
   def from_hash(hash)
-    @path = hash["path"]
+    @path = hash["path"] || hash["title"]
+    if hash["pageUrls"]
+      hash["pagePaths"] = Addressable::URI.unencode_component(hash["pageUrls"])
+    end
     @page_paths = hash["pagePaths"]
     @pages = hash["pages"]
     @published_on = hash["publishedOn"]
