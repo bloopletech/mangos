@@ -1,8 +1,24 @@
 #!/usr/bin/env ruby
 
+require "optparse"
 require "mangos"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename(__FILE__)} [options] [manga package directory root]"
+
+  opts.on("-f", "--force", "Process all books in the package, even ones that seem up to date")
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+
+  opts.separator ""
+  opts.separator "If you do not supply a manga package directory root, then the current directory will be used."
+end.parse!(into: options)
 
 root_path = Pathname.new(ARGV.first || ".").realpath
 
-mangos = Mangos::Package.new(root_path)
+mangos = Mangos::Package.new(root_path, options)
 mangos.update

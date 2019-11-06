@@ -1,10 +1,11 @@
 class Mangos::Package
-  attr_reader :path
+  attr_reader :path, :options
 
-  def initialize(path)
+  def initialize(path, options)
     raise "path must be an instance of Pathname" unless path.is_a?(Pathname)
 
     @path = path
+    @options = options
   end
 
   def update
@@ -24,5 +25,9 @@ class Mangos::Package
 
   def thumbnails_path
     app_path + "img/thumbnails/"
+  end
+
+  def force?
+    @options[:force]
   end
 end

@@ -8,6 +8,7 @@ class Mangos::Update
   end
 
   def update
+    puts "Running with options #{@package.options.inspect}" unless @package.options.empty?
     load_data
     process
     save_data

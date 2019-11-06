@@ -9,7 +9,7 @@ class Mangos::Processor
   end
 
   def update(path, book)
-    return false if path.mtime < @original_mtime
+    return false if !@package.force? && path.mtime < @original_mtime
     Mangos::BookUpdater.new(@package, book, path).update
     true
   end
