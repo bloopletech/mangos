@@ -4,7 +4,7 @@ class Mangos::Package
   def initialize(path, options)
     raise "path must be an instance of Pathname" unless path.is_a?(Pathname)
 
-    @path = path
+    @path = DecoratedPathname.new(path)
     @options = options
   end
 

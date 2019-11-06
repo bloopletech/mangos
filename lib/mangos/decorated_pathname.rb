@@ -1,4 +1,4 @@
-class Pathname
+class DecoratedPathname < Pathname
   def descendant_directories
     out = []
     children.select { |p| p.directory? && !p.hidden? }.each do |p|

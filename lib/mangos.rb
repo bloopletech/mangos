@@ -11,12 +11,10 @@ require "addressable/uri"
 require "naturalsorter"
 require "rmagick"
 
-#Core Extensions
-require "mangos/core_ext/pathname"
-
 module Mangos
 end
 
+require "mangos/decorated_pathname"
 require "mangos/processor"
 require "mangos/resort_pages_processor"
 require "mangos/tag_breaker"
