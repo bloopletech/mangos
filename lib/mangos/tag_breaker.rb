@@ -33,9 +33,7 @@ class Mangos::TagBreaker
       case delimiter
       when open
         stack.push('')
-        stack.each { |tag| tag << delimiter }
       when close
-        stack.each { |tag| tag << delimiter }
         results << stack.pop
       end
     end
