@@ -11,7 +11,8 @@ class Mangos::PagesDeflater
     out = []
 
     @page_paths.each do |path|
-      base, ext = path.split(".")
+      path_parts = path.rpartition(".")
+      base, ext = path_parts.first, path_parts.last
 
       if last_base.nil? || (ext != last_ext) || (base != last_base.succ)
         if last_count > 0
