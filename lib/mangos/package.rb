@@ -23,11 +23,19 @@ class Mangos::Package
     app_path + "data.json"
   end
 
+  def key_mapping_path
+    app_path + "key_mapping.json"
+  end
+
   def thumbnails_path
     app_path + "img/thumbnails/"
   end
 
   def force?
     @options[:force]
+  end
+
+  def migrate?
+    @options[:migrate]
   end
 end

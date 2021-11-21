@@ -8,6 +8,7 @@ OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename(__FILE__)} [options] [manga package directory root]"
 
   opts.on("-f", "--force", "Process all books in the package, even ones that seem up to date")
+  opts.on("-m", "--migrate", "Migrate package that incorrectly used the full pathnames to generate the book keys")
 
   opts.on("-h", "--help", "Prints this help") do
     puts opts

@@ -10,13 +10,15 @@ class Mangos::BookUpdater
   def update
     page_paths = find_page_paths
 
-    @book.key = Digest::SHA256.hexdigest(@path.to_s)[0..16]
+    @book.old_key = @book.key
+    @book.key = Digest::SHA256.hexdigest(@path.basename.to_s)[0..16]
     @book.page_paths = build_page_paths(page_paths)
     @book.pages = page_paths.length
     @book.path = @path.basename.to_s
     @book.published_on = @path.mtime.to_i
     @book.tags = Mangos::TagBreaker.new(@book.path).tags
 
+    fix_thumbnail_path if @package.migrate?
     Mangos::Thumbnailer.new(page_paths.first, thumbnail_path).generate
   end
 
@@ -31,5 +33,12 @@ class Mangos::BookUpdater
 
   def thumbnail_path
     @package.thumbnails_path + "#{@book.key}.jpg"
+  end
+
+  def fix_thumbnail_path
+    old_thumbnail_path = @package.thumbnails_path + "#{@book.old_key}.jpg"
+    if old_thumbnail_path.exist? && !thumbnail_path.exist?
+      old_thumbnail_path.rename(thumbnail_path)
+    end
   end
 end

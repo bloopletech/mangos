@@ -12,6 +12,7 @@ class Mangos::Update
     load_data
     process
     save_data
+    save_key_mapping if @package.migrate?
     puts "Done!"
   end
 
@@ -25,6 +26,11 @@ class Mangos::Update
   def save_data
     puts "Writing out JSON file"
     @package.data_path.write(@books.map { |b| b.to_hash }.to_json)
+  end
+
+  def save_key_mapping
+    puts "Writing out key mapping JSON file"
+    @package.key_mapping_path.write(@books.to_h { |b| [b.old_key, b.key] }.to_json)
   end
 
   def process
