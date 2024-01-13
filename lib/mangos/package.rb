@@ -9,8 +9,8 @@ class Mangos::Package
   end
 
   def update
-    app_path.mkdir unless File.exists?(app_path)
-    thumbnails_path.mkpath unless File.exists?(thumbnails_path)
+    app_path.mkdir unless File.exist?(app_path)
+    thumbnails_path.mkpath unless File.exist?(thumbnails_path)
 
     Mangos::Update.new(self, Mangos::Processor.new(self)).update
   end
